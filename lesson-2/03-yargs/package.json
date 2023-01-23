@@ -1,0 +1,17 @@
+{
+  "name": "01-files-json",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start:dev": "nodemon index",
+    "start:prod": "node index"
+  },
+  "dependencies": {
+    "nanoid": "3.3.4",
+    "yargs": "^17.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
