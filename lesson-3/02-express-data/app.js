@@ -1,17 +1,19 @@
-const express = require('express');
+const express = require("express");
 const bookList = require('./book-list');
-const PORT = 3000;
 
 const app = express(); // web-server
 
-app.get('/books', function (req, res) {
-  res.send(bookList);
+app.get("/books", (req, res) => {
+  // res.json(null);
+  // res.send(null);
+  // res.send(bookList);
+  res.json(bookList);
 });
 
-// app.get('/contacts', function (req, res) {
-//   res.send('<h2>Contacts page</h2>');
-// });
+// app.get("/contacts", (req, res) => {
+//   console.log('Method: ', req.method);
+//   console.log('URL: ', req.url);
+//   res.send("<h2>Contacts page</h2>")
+// })
 
-app.listen(PORT, () => {
-  console.log(`The server is running on port ${PORT}`);
-});
+app.listen(3000, () => console.log("The server is running"));

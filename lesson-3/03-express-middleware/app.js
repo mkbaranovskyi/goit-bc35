@@ -1,75 +1,46 @@
-const express = require('express');
-const { DateTime } = require('luxon');
+const express = require("express");
 const bookList = require('./book-list');
-const PORT = 3000;
+const { DateTime } = require('luxon');
 const fsp = require('fs/promises');
-const cors = require('cors');
-
-const serverSecret = 'secret';
+const cors = require("cors")
 
 const app = express(); // web-server
 
+// const corsMiddleware = cors();
+// app.use(corsMiddleware)
 app.use(cors());
-// app.use((req, res, next) => {
-//   const secret = req.headers.authorization;
-//   if (serverSecret === secret) {
-//     next();
-//   }
-
-//   res.status(401).send();
-// });
 
 app.use(async (req, res, next) => {
-  const now = DateTime.utc().toISO();
-
-  await fsp.appendFile('./public/server.log', `\n${req.method} ${req.url} ${now}`);
-
+  const { method, url } = req;
+  const date = DateTime.utc().toISO();
+  await fsp.appendFile("./public/server.log", `\n${method} ${url} ${date}`);
   next();
-});
+})
 
-app.get('/books', function (req, res) {
+// app.use((req, res, next) => {
+//   console.log('1st middleware');
+//   next();
+// });
+
+// app.use((req, res, next) => {
+//   console.log('2nd middleware');
+//   next();
+// });
+
+app.get("/books", (req, res) => {
   // res.setHeader('Access-Control-Allow-Origin', '*');
-  res.send(bookList);
+  res.json(bookList);
 });
 
-app.get('/api/v1/contacts', async (req, res) => {
-  const bookId = req.params.id;
+app.post("/books", (req, res) => {
+  // Додамо книгу в нашу БД...
 
-  const book = bookList.find((book) => book.id === bookId);
-  if (!book) {
-    res.send(404).send('The book is not found');
-    return;
-  }
-
-  console.log(book);
-
-  res.status(200).json(null);
-  return;
+  // Повернемо результат:
+  res.json({
+    id: "zCd_RioNMOBaQwAXnc8Px",
+    title: "Understanding ECMAScript 6",
+    author: "Nicholas C. Zakas",
+  });
 });
 
-app.get('/api/v2/contacts', async (req, res) => {
-  const bookId = req.params.id;
-
-  const book = bookList.find((book) => book.id === bookId);
-  if (!book) {
-    res.send(404).send('The book is not found');
-    return;
-  }
-
-  console.log(book);
-
-  res.status(200).json(null);
-  return;
-});
-
-app.get('/books/author', function (req, res) {
-  res.send(bookList);
-});
-
-app.get('/contacts', function (req, res) {
-  res.send('<h2>Contacts page</h2>');
-});
-
-app.listen(PORT, () => {
-  console.log(`The server is running on port ${PORT}`);
-});
+app.listen(3000, () => console.log("The server is running"));

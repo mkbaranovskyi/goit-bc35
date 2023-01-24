@@ -1,17 +1,12 @@
-const express = require('express');
-const cors = require('cors');
-const PORT = 3000;
-const booksRouter = require('./routes/books');
+const express = require("express");
+const cors = require("cors");
 
-const bookList = require('./book-list');
+const booksRouter = require("./routes/api/books");
 
-const app = express(); // web-server
+const app = express();
 
 app.use(cors());
 
-app.use('/books', booksRouter);
-// app.use('/restaurants', restaurantRouter);
+app.use("/api/books", booksRouter);
 
-app.listen(PORT, () => {
-  console.log(`The server is running on port ${PORT}`);
-});
+app.listen(3000);

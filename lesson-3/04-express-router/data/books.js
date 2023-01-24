@@ -39,4 +39,4 @@ module.exports = [
     "title": "Rethinking Productivity in Software Engineering",
     "author": "Caitlin Sadowski, Thomas Zimmermann"
   }
-]
+];
