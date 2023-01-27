@@ -4,6 +4,7 @@ const cors = require('cors')
 
 const booksRouter = require('./routes/api/books')
 const contactsRouter = require('./routes/api/contacts')
+const { globalErrorHandler } = require('./middlewares')
 
 const app = express()
 
@@ -20,9 +21,6 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
 })
 
-app.use((err, req, res, next) => {
-  const { status = 500, message = 'Server error' } = err
-  res.status(status).send({ message })
-})
+app.use(globalErrorHandler)
 
 module.exports = app

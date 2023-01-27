@@ -6,37 +6,38 @@ const { addBookSchema } = require('../../helpers/schemas')
 
 const router = express.Router()
 
-router.get(
-  '/',
-  controllerExceptionWrapper(booksController.getAll),
-)
-router.get(
-  '/:id',
-  controllerExceptionWrapper(booksController.getById),
-)
-router.post(
-  '/',
-  validateBody(addBookSchema),
-  controllerExceptionWrapper(booksController.add),
-)
-router.put(
-  '/:id',
-  validateBody(addBookSchema),
-  // Це те ж саме ... 
-  // controllerExceptionWrapper(booksController.updateById),
+router
+  .get(
+    '/',
+    controllerExceptionWrapper(booksController.getAll),
+  )
+  .get(
+    '/:id',
+    controllerExceptionWrapper(booksController.getById),
+  )
+  .post(
+    '/',
+    validateBody(addBookSchema),
+    controllerExceptionWrapper(booksController.add),
+  )
+  .put(
+    '/:id',
+    validateBody(addBookSchema),
+    // Це те ж саме ... 
+    // controllerExceptionWrapper(booksController.updateById),
 
-  // ... що це
-  async (req, res, next) => {
-    try {
-      await booksController.updateById(req, res, next)
-    } catch (error) {
-      next(error)
+    // ... що це
+    async (req, res, next) => {
+      try {
+        await booksController.updateById(req, res, next)
+      } catch (error) {
+        next(error)
+      }
     }
-  }
-)
-router.delete(
-  '/:id',
-  controllerExceptionWrapper(booksController.deleteById),
-)
+  )
+  .delete(
+    '/:id',
+    controllerExceptionWrapper(booksController.deleteById),
+  )
 
 module.exports = router

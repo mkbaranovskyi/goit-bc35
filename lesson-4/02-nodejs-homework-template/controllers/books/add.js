@@ -10,7 +10,7 @@ const add = async (req, res, next) => {
 
   const { author, title } = req.body
   const result = await booksRepository.create({ author, title })
-  res.json(result)
+  res.status(201).json(result)
 }
 
 module.exports = {
