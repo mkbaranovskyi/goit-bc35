@@ -23,21 +23,11 @@ router
   .put(
     '/:id',
     validateBody(addBookSchema),
-    // Це те ж саме ... 
-    // controllerExceptionWrapper(booksController.updateById),
-
-    // ... що це
-    async (req, res, next) => {
-      try {
-        await booksController.updateById(req, res, next)
-      } catch (error) {
-        next(error)
-      }
-    }
+    controllerExceptionWrapper(booksController.updateById),
   )
-  .delete(
-    '/:id',
-    controllerExceptionWrapper(booksController.deleteById),
-  )
+.delete(
+  '/:id',
+  controllerExceptionWrapper(booksController.deleteById),
+)
 
 module.exports = router
