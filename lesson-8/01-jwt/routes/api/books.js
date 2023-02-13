@@ -1,7 +1,7 @@
 const express = require('express')
 const booksController = require('../../controllers/books')
 const { controllerExceptionWrapper } = require('../../helpers')
-const { validateBody } = require('../../middlewares')
+const { validateBody, authUser } = require('../../middlewares')
 const { addBookSchema } = require('../../helpers/schemas')
 
 const router = express.Router()
@@ -17,6 +17,7 @@ router
   )
   .post(
     '/',
+    authUser,
     validateBody(addBookSchema),
     controllerExceptionWrapper(booksController.add),
   )

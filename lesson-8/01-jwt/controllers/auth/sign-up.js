@@ -2,6 +2,7 @@ const { createHttpException } = require('../../helpers');
 const { UserModel } = require('../../models');
 // const { createHash } = require('../../services/books/crypto');
 const bcrypt = require('bcrypt')
+const { createAccessToken } = require('../../services/jwt');
 
 const signUp = async (req, res, next) => {
   const unauthorizedMessage = 'User already exists'
@@ -21,9 +22,10 @@ const signUp = async (req, res, next) => {
       throw createHttpException(401, unauthorizedMessage)
     })
 
+  const accessToken = createAccessToken({ userId: userInstance._id })
+
   res.status(201).json({
-    firstname: userInstance.firstname,
-    email: userInstance.email,
+    accessToken,
   })
 }
 

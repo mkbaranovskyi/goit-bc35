@@ -27,6 +27,11 @@ const bookSchema = mongoose.Schema({
     required: true,
     match: /^[0-9-]{10,20}$/,
   },
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'users',
+    required: true,
+  },
 }, {
   versionKey: false,
   timestamps: {

@@ -18,6 +18,11 @@ const userSchema = mongoose.Schema({
     required: true,
     trim: true,
   },
+  sessionKey: {
+    type: String,
+    default: null,
+    trim: true,
+  },
 }, {
   versionKey: false,
   timestamps: {
