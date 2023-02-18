@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^29.4.3"
+  },
+  "name": "01-jest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT"
+}

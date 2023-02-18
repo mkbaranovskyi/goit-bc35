@@ -1,0 +1,1 @@
+// `spec.js` is same as `test.js`
