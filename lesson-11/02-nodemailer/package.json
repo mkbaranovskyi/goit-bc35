@@ -1,0 +1,14 @@
+{
+  "name": "01-sendgrid",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app",
+    "start:dev": "nodemon app"
+  },
+  "dependencies": {
+    "nodemailer": "^6.9.1",
+    "dotenv": "^16.0.3"
+  }
+}
