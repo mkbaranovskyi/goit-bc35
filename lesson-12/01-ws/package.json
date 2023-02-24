@@ -1,0 +1,14 @@
+{
+  "name": "01-ws",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app",
+    "start:dev": "node --watch app"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "ws": "^8.12.1"
+  }
+}

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .chat {
+      width: 242px;
+      margin-bottom: 15px;
+      border: 1px solid;
+    }
+
+    .chat p {
+      margin: 10px 5px 25px;
+    }
+
+    .enter-chat-message {
+      font-size: 18px;
+      font-weight: bold;
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 5px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .you-chat-message {
+      font-size: 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: lightgray;
+      padding: 5px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .user-chat-message {
+      font-size: 16px;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: right;
+      background-color: lightskyblue;
+      padding: 5px;
+      border-radius: 5px;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <form action="" id="user-name-form">
+      <label for="">Введіть нікнейм</label>
+      <input type="text" name="username" placeholder="Ваше ім'я" required />
+    </form>
+  </div>
+  <div id="chat" class="chat">
+    <!-- <p>
+      <span class="name">Я:</span>
+      <span class="you-chat-message">Йоу!</span>
+    </p>
+    <p>
+      <span class="name">Красуня:</span>
+      <span class="user-chat-message">Привіт!</span>
+    </p> -->
+  </div>
+
+  <div id="chat-message">
+    <form action="" id="chat-form">
+      <div class="form-group">
+        <textarea name="message" id="" cols="30" rows="3" placeholder="Нове повідомлення" required></textarea>
+      </div>
+      <button type="submit">Відправити</button>
+    </form>
+  </div>
+  <!-- 
+1. Після сабміту відправлене повідомлення з'являється в чаті
+2. Це повідомлення відправляється на сервер через ws протокол
+3. Отримавши повідомлення з серверу, виводити його в чат з класом "user-chat-message"
+ -->
+  <script>
+    let username = ""
+    const usernameForm = document.getElementById("user-name-form")
+    usernameForm.addEventListener("submit", function (e) {
+      e.preventDefault()
+      username = this.elements.username.value
+      console.log(username)
+      this.remove()
+    })
+
+    const chat = document.getElementById("chat")
+    const ws = new WebSocket("ws://localhost:3000")
+
+    ws.onmessage = ({ data }) => {
+      console.log(data)
+      const { username, message } = JSON.parse(data)
+      chat.insertAdjacentHTML("beforeend", `<p>
+            <span class="name">${username}:</span>
+            <span class="user-chat-message">${message}</span>
+        </p>`)
+    }
+
+    const chatForm = document.getElementById("chat-form")
+
+    chatForm.addEventListener("submit", function (e) {
+      e.preventDefault()
+
+      // Взяти значення та вставити його в чат
+      const message = this.elements.message.value;
+      chat.insertAdjacentHTML("beforeend", `<p>
+                <span class="name">${username}:</span>
+                <span class="you-chat-message">${message}</span>
+            </p>`)
+      this.reset()
+
+      // Відправка на бек
+      const data = {
+        username,
+        message,
+      }
+
+      ws.send(JSON.stringify(data))
+    })
+  </script>
+</body>
+
+</html>

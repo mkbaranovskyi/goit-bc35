@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WS</title>
+</head>
+
+<body>
+  <form name="publish">
+    <label for="msg">Enter your message: </label>
+    <input type="text" name="msg" id="msg" /><br />
+    <button type="submit" id="sub">Submit</button>
+  </form>
+
+  <div id="messages"></div>
+
+  <script>
+    const ws = new WebSocket('ws://localhost:3000')
+
+    document.forms.publish.onsubmit = (e) => {
+      if (ws.readyState === 1) {
+        // connection is open
+        ws.send(msg.value)
+      }
+      return false
+    }
+
+    ws.onmessage = (e) => {
+      console.log(e.data)
+      const div = document.createElement('div')
+      document.getElementById('messages').prepend(div)
+      div.textContent = e.data
+    }
+  </script>
+</body>
+
+</html>
