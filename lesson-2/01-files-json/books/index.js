@@ -47,6 +47,7 @@ const updateById = async (id, data) => {
   }
 
   books[index] = { id, ...data };
+  await updateBookList(books);
 
   return books[index];
 };
