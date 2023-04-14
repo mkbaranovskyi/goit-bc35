@@ -25,7 +25,8 @@ const bookSchema = mongoose.Schema({
   isbn: {
     type: String,
     required: true,
-    match: /^[0-9-]{10,20}$/,
+    // match: /^[0-9-]{10,20}$/,
+    match: /^[0-9]{3}-[0-9]{3}-[0-9]{3}$/,
   },
 }, {
   versionKey: false,

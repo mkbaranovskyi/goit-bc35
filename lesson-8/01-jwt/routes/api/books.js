@@ -26,9 +26,9 @@ router
     validateBody(addBookSchema),
     controllerExceptionWrapper(booksController.updateById),
   )
-.delete(
-  '/:id',
-  controllerExceptionWrapper(booksController.deleteById),
-)
+  .delete(
+    '/:id',
+    controllerExceptionWrapper(booksController.deleteById),
+  )
 
 module.exports = router
