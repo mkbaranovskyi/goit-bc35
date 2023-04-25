@@ -4,8 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node app",
-    "start:dev": "nodemon app"
+    "start": "node app"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",

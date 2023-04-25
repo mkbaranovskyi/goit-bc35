@@ -8,8 +8,8 @@ const transporter = nodemailer.createTransport({
   port: MAIL_SENDER_PORT,
   secure: true, // true for 465, false for other ports
   auth: {
-    user: MAIL_SENDER_EMAIL, // generated ethereal user
-    pass: MAIL_SENDER_PASSWORD, // generated ethereal password
+    user: MAIL_SENDER_EMAIL,
+    pass: MAIL_SENDER_PASSWORD,
   },
 })
 
@@ -17,7 +17,7 @@ async function sendEmail() {
   try {
     await transporter.sendMail({
       from: MAIL_SENDER_EMAIL,
-      to: "vereye1980@mustbeit.com",
+      to: "fokal82334@saeoil.com",
       subject: "Hello",
       html: "<p>Verify your email</p>",
     })
@@ -28,4 +28,4 @@ async function sendEmail() {
   }
 }
 
-sendEmail();
+sendEmail()
