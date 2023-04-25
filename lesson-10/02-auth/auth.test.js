@@ -49,8 +49,7 @@ describe("test auth routes", () => {
     const response = await request(app)
       .post("/api/auth/login")
       .send(loginUser);
+
     expect(response.statusCode).toBe(200);
-
-
   })
 })

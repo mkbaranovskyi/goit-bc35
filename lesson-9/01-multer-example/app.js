@@ -20,6 +20,7 @@ function createPath(entityName) {
 
 const multerConfig = multer.diskStorage({
   destination: function (req, file, cb) {
+    // cb(null, tempDirPath)
     const lastPathPart = req.url.split('/').pop()
     const filePath = createPath(lastPathPart)
     cb(null, filePath)
@@ -40,9 +41,9 @@ app.get('/api/books', async (req, res, next) => {
 
 app.post(
   '/api/books',
-  // upload.array('cover'), // для multiple files в одному інпуті
-  // upload.fields('cover'), // для різних файлових інпутів 
   upload.single('cover'),
+  // upload.array('cover'), // для multiple files в одному інпуті
+  // upload.fields([{ name: 'avatar', maxCount: 1 }, { name: 'gallery', maxCount: 8 }]), // для різних файлових інпутів 
   async (req, res, next) => {
     console.log(req.body) // текстові поля
     console.log(req.file) // файл / файли

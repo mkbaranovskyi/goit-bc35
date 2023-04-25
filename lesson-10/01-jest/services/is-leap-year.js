@@ -3,6 +3,10 @@ function isLeapYear(year) {
     throw new Error('Year must be defined')
   }
 
+  if (!Number.isInteger(year)) {
+    throw new Error('Year must be integer')
+  }
+
   // is not a string
 
   
